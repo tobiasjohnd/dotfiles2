@@ -1,0 +1,2 @@
+export EDITOR=nvim
+export PATH=$HOME/.scripts:$HOME/.emacs.d/bin:$HOME/.local/bin:/opt/nvim?$PATH

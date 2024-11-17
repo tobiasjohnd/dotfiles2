@@ -1,0 +1,9 @@
+[user]
+	email = tbdickenson@googlemail.com
+	name = Toby Dickenson
+[pull]
+	rebase = true
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[init]
+	defaultbranch = main

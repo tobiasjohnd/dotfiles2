@@ -1,0 +1,37 @@
+[general]
+import = [
+    "theme.toml"
+    ]
+
+[window.dimensions]
+columns = 90
+lines = 30
+
+[window.padding]
+x = 3
+y = 3
+
+[cursor]
+style = "Beam"
+unfocused_hollow = true
+
+[font]
+size = 14
+
+[font.bold]
+family = "JetBrainsMonoNL NFM"
+style = "Bold"
+
+[font.italic]
+family = "JetBrainsMonoNL NFM"
+style = "Italic"
+
+[font.normal]
+family = "JetBrainsMonoNL NFM"
+style = "Regular"
+
+[selection]
+save_to_clipboard = true
+
+[terminal]
+shell = "zsh"
