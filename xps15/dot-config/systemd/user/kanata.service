@@ -3,11 +3,10 @@ Description=Kanata keyboard remapper
 Documentation=https://github.com/jtroo/kanata
 
 [Service]
-Environment=PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin
+Environment=PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:%h/.cargo/bin
 Environment=DISPLAY=:0
-Environment=XAUTHORITY=${HOME}/.Xauthority
 Type=simple
-ExecStart=/usr/bin/kanata --cfg ${HOME}/.config/kanata/xps15.kbd
+ExecStart=/usr/bin/sh -c 'exec $(which kanata) --cfg ${HOME}/.config/kanata/xps15.kbd'
 Restart=always
 RestartSec=3
 
