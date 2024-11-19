@@ -28,7 +28,7 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } 
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 vim.opt.wrap = false
 

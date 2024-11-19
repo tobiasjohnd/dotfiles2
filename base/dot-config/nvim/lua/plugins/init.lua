@@ -16,7 +16,16 @@ return {
         },
         -- See Commands section for default commands if you want to lazy load on them
     },
-
+    {"brenoprata10/nvim-highlight-colors", -- nice highlighting for css colours
+        opts = {
+            render = 'background',
+            --render = 'foreground',
+            --render = 'virtual',
+            virtual_symbol_position = 'eow',--'eol', 'inline'
+            virtual_symbol_prefix = '',
+            virtual_symbol_suffix = ' ',
+        }
+    },
     {"editorconfig/editorconfig-vim"},
     { 'nvim-telescope/telescope-fzf-native.nvim',
         build = 'make'
@@ -82,6 +91,9 @@ return {
 
                     additional_vim_regex_highlighting = false,
                 },
+            })
+            vim.filetype.add({
+                pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
             })
         end
     },
