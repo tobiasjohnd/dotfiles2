@@ -28,8 +28,6 @@ setopt hist_find_no_dups
 setopt hist_ignore_dups
 setopt hist_ignore_all_dups
 
-
-
 ## Tab selection
 #fpath=(path/to/zsh-completions/src $fpath) # requires zsh-competions plugin
 #autoload -U compinit
@@ -49,6 +47,11 @@ _comp_options+=(globdots)
 
 
 ## Aliases
+
+# sudo
+alias s='sudo'
+alias sl='sudo $(fc -ln -1)'
+
 # git bare repo alias for dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.config-repo/ --work-tree=$HOME'
 alias ls='ls --color=auto'
@@ -84,6 +87,9 @@ export FZF_COMPLETION_OPTS='--info=inline-right --walker=file,dir,follow,hidden'
 
 # TODO: look into fzf-tab 
 # TODO: read more abour fzf
+
+eval "$(ssh-agent -s)" > /dev/null
+alias ssh-login="ssh-add ~/.ssh/id_ed25519"
 
 
 # [ -f "/home/tobyd/.ghcup/env" ] && . "/home/tobyd/.ghcup/env" # ghcup-env
