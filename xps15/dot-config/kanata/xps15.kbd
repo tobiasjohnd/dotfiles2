@@ -1,39 +1,38 @@
 
 (defcfg
   process-unmapped-keys yes
-  linux-dev-names-include "AT Translated Set 2 keyboard"
-)
-
-(defsrc
-  esc caps spc 
-  a s d f j k l ;
-)
-(defvar
-  tap-time 250
-  hold-time 250
-)
-
-(defalias
-  a (tap-hold $tap-time $hold-time a lmet)
-  s (tap-hold $tap-time $hold-time s lalt)
-  d (tap-hold $tap-time $hold-time d lsft)
-  f (tap-hold $tap-time $hold-time f lctl)
-  j (tap-hold $tap-time $hold-time j rctl)
-  k (tap-hold $tap-time $hold-time k rsft)
-  l (tap-hold $tap-time $hold-time l ralt)
-  ; (tap-hold $tap-time $hold-time ; rmet)
-  spc (
-    tap-hold-press-timeout $tap-time $hold-time spc 
-    (layer-while-held homerowmods)
-    (one-shot-release 2000 (layer-while-held homerowmods))
+  linux-dev-names-include (
+    "AT Translated Set 2 keyboard"
   )
 )
 
+(defsrc
+  esc caps spc lalt ralt
+  s d f j k l
+)
+(defvar
+  tap-time 200
+  hold-time 200
+)
+
+(defalias
+  mets (tap-hold-press $tap-time $hold-time s lmet)
+  altd (tap-hold-press $tap-time $hold-time d lalt)
+  ctlf (tap-hold-press $tap-time $hold-time f lctl)
+  ctlj (tap-hold-press $tap-time $hold-time j rctl)
+  altk (tap-hold-press $tap-time $hold-time k ralt)
+  metl (tap-hold-press $tap-time $hold-time l rmet)
+  shsp (tap-hold-press $tap-time $hold-time spc lsft)
+  shbk (tap-hold-press $tap-time $hold-time bks lsft) 
+  lyrh (layer-while-held homerowmods)
+)
+
 (deflayer base
-  lrld esc @spc _ _ _ _ _ _ _ _
+  lrld esc @lyrh @shsp @shbk
+  _ _ _ _ _ _
 )
 
 (deflayer homerowmods
-  _ _ XX
-  @a @s @d @f @j @k @l @;
+  _ _ XX _ _
+  @mets @altd @ctlf @ctlj @altk @metl
 )
