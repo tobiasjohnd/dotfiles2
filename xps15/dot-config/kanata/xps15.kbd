@@ -7,32 +7,38 @@
 )
 
 (defsrc
-  esc caps spc lalt ralt
-  s d f j k l
+  esc caps spc
+  a s d f j k l ;
 )
+
 (defvar
   tap-time 200
   hold-time 200
 )
 
 (defalias
-  mets (tap-hold-press $tap-time $hold-time s lmet)
-  altd (tap-hold-press $tap-time $hold-time d lalt)
-  ctlf (tap-hold-press $tap-time $hold-time f lctl)
-  ctlj (tap-hold-press $tap-time $hold-time j rctl)
-  altk (tap-hold-press $tap-time $hold-time k ralt)
-  metl (tap-hold-press $tap-time $hold-time l rmet)
-  shsp (tap-hold-press $tap-time $hold-time spc lsft)
-  shbk (tap-hold-press $tap-time $hold-time bks lsft) 
-  lyrh (layer-while-held homerowmods)
+  lmet (tap-hold-press $tap-time $hold-time a lmet)
+  lalt (tap-hold-press $tap-time $hold-time s lalt)
+  lctl (tap-hold-press $tap-time $hold-time d lctl)
+  lsft (tap-hold-press $tap-time $hold-time f lsft) 
+  rsft (tap-hold-press $tap-time $hold-time j rsft)
+  rctl (tap-hold-press $tap-time $hold-time k rctl)
+  ralt (tap-hold-press $tap-time $hold-time l ralt)
+  rmet (tap-hold-press $tap-time $hold-time ; rmet)
+
+  lyrh (
+    tap-hold-press-timeout $tap-time $hold-time spc
+    (layer-while-held homerowmods)
+    (one-shot-release 5000 (layer-while-held homerowmods))
+  )
 )
 
 (deflayer base
-  lrld esc @lyrh @shsp @shbk
-  _ _ _ _ _ _
+  lrld esc @lyrh
+  _ _ _ _ _ _ _ _
 )
 
 (deflayer homerowmods
-  _ _ XX _ _
-  @mets @altd @ctlf @ctlj @altk @metl
+  _ _ XX
+  @lmet @lalt @lctl @lsft @rsft @rctl @ralt @rmet
 )
