@@ -58,9 +58,8 @@ vim.opt.scrolloff = 5
 vim.keymap.set("n", "<leader>x", ":!<Space>")
 vim.keymap.set("n", "<leader><leader>", ":w<CR>")
 vim.keymap.set("n", "<leader>so", ":source %<CR>")
+vim.keymap.set("v", "<leader>so", ":'<,'>source<CR>")
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-vim.keymap.set("n", ":" , ";")
-vim.keymap.set("n", ";", ":")
 
 -- Move selected line / block of text in visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -93,13 +92,18 @@ vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
 vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
+-- AI TOOLS -------------------------------------------------------------------
+vim.keymap.set("n", "<leader>cp", ":Copilot<CR>")
+vim.keymap.set("n", "<leader>cc", ":CopilotChat<CR>")
+
+
 -- Git ------------------------------------------------------------------
 vim.keymap.set("n", "<leader>gs", ":!git status<CR>")
-vim.keymap.set("n", "<leader>gc", ":!git commit -m ''<Left><Left>")
+vim.keymap.set("n", "<leader>gc", ":!git commit -m ''<Left>")
 vim.keymap.set("n", "<leader>gp", ":!git push<CR>")
 vim.keymap.set("n", "<leader>gl", ":!git pull<CR>")
-vim.keymap.set("n", "<leader>ga", ":!git add ")
-vim.keymap.set("n", "<leader>ga%", ":!git add %<CR>")
+vim.keymap.set("n", "<leader>ga<space>", ":!git add ")
+vim.keymap.set("n", "<leader>ga", ":!git add %<CR>")
 vim.keymap.set("n", "<leader>gaa", ":!git add --all<CR>")
 vim.keymap.set("n", "<leader>gau", ":!git add -u<CR>")
 
