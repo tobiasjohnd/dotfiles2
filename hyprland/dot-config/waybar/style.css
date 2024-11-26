@@ -47,9 +47,10 @@
 @define-color nord14 #A3BE8C;
 @define-color nord15 #B48EAD;
 
-
 @define-color bg @nord1;
 @define-color fg @nord5;
+@define-color active @nord8;
+@define-color visible @nord9;
 @define-color warning @nord13;
 @define-color urgent @nord11;
 
@@ -91,6 +92,13 @@
 #workspaces button {
     color: @fg;
     padding: 0;
+}
+#workspaces button.visible {
+    color: @active;
+}
+#workspaces button.active {
+    background: @active;
+    color: @fg;
 }
 #workspaces button.urgent {
     color: @urgent;

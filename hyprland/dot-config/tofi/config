@@ -26,5 +26,3 @@ text-cursor = true
 history = true
 matching-algorithm = fuzzy
 auto-accept-single = true
-drun-launch = true
-terminal = alacritty

@@ -8,16 +8,15 @@
 
     "hyprland/workspaces": {
         "active-only": false,
+        "move-to-monitor": true,
+        "all-outputs": true,
         "format": "{icon}",
         "format-icons": {
             "1": "A",
             "2": "S",
             "3": "D",
             "4": "F",
-            "active": "",
-        },
-        "persistent-workspaces": {
-                "*": 4,
+            "5": "G",
         },
     },
 
