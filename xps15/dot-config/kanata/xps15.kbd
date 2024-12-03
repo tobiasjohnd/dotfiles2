@@ -3,11 +3,12 @@
   process-unmapped-keys yes
   linux-dev-names-include (
     "AT Translated Set 2 keyboard"
+    "Keychron Keychron K3"
   )
 )
 
 (defsrc
-  esc caps spc
+  esc caps spc lalt ralt
   a s d f j k l ;
 )
 
@@ -17,14 +18,14 @@
 )
 
 (defalias
-  lmet (tap-hold-press $tap-time $hold-time a lmet)
+  lsft (tap-hold-press $tap-time $hold-time a lsft) 
   lalt (tap-hold-press $tap-time $hold-time s lalt)
   lctl (tap-hold-press $tap-time $hold-time d lctl)
-  lsft (tap-hold-press $tap-time $hold-time f lsft) 
-  rsft (tap-hold-press $tap-time $hold-time j rsft)
+  lmet (tap-hold-press $tap-time $hold-time f lmet)
+  rmet (tap-hold-press $tap-time $hold-time j rmet)
   rctl (tap-hold-press $tap-time $hold-time k rctl)
   ralt (tap-hold-press $tap-time $hold-time l ralt)
-  rmet (tap-hold-press $tap-time $hold-time ; rmet)
+  rsft (tap-hold-press $tap-time $hold-time ; rsft)
 
   lyrh (
     tap-hold-press-timeout $tap-time $hold-time spc
@@ -34,11 +35,11 @@
 )
 
 (deflayer base
-  lrld esc @lyrh
+  lrld esc @lyrh lsft rsft
   _ _ _ _ _ _ _ _
 )
 
 (deflayer homerowmods
-  _ _ XX
+  _ _ XX _ _
   @lmet @lalt @lctl @lsft @rsft @rctl @ralt @rmet
 )

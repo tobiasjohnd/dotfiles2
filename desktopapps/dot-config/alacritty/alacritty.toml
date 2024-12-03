@@ -16,18 +16,18 @@ style = "Beam"
 unfocused_hollow = true
 
 [font]
-size = 14
+size = 13
 
 [font.bold]
-family = "Cascadia Mono NF"
+family = "CaskaydiaMono NF"
 style = "Bold"
 
 [font.italic]
-family = "Cascadia Mono NF"
+family = "CaskaydiaMono NF"
 style = "Italic"
 
 [font.normal]
-family = "Cascadia Mono NF"
+family = "CaskaydiaMono NF"
 style = "Regular"
 
 [selection]
