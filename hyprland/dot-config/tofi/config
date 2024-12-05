@@ -24,5 +24,5 @@ result-spacing = 5
 hide-cursor = true
 text-cursor = true
 history = true
-matching-algorithm = fuzzy
 auto-accept-single = true
+fuzzy-match = true
