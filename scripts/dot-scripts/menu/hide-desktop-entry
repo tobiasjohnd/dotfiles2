@@ -1,0 +1,32 @@
+#!/usr/bin/env lua
+
+local function get_path_of_selected_entry(entries, selected)
+    for _, entry in ipairs(entries) do
+        if entry.name == selected then
+            return entry.path
+        end
+    end
+end
+
+local home = os.getenv("HOME")
+package.path = package.path .. string.format(";%s/.scripts/lua/?.lua", home)
+
+local menuhelper = require("menuhelper")
+
+local entries = Get_desktop_entries()
+
+local to_display = {}
+for _, entry in ipairs(entries) do
+    if not entry.is_hidden then
+        table.insert(to_display, entry.name)
+    end
+end
+
+local menuopts = table.concat(to_display, "\n")
+local selected = Menu(menuopts)
+
+if selected then
+    local path = get_path_of_selected_entry(entries, selected)
+    --TODO: copy desktop entry to home directory and add Hidden=true
+        --NOTE: need to make sure that the hidden property is in the right place
+end
