@@ -3,6 +3,7 @@
 -- menu bash command
 function Menu(options)
     local selected = io.popen("echo '"..options.."' | tofi")
+    return selected:read("*l")
 end
 
 -- Function to get all files in a directory matching a pattern
@@ -65,7 +66,6 @@ function Get_desktop_entries()
 
     -- Process each directory
     for _, dir in ipairs(desktop_dirs) do
-        print("reading... " .. dir)
         -- Check if directory exists
         local f = io.open(dir)
         if f then
