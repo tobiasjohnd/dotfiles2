@@ -1,0 +1,166 @@
+#!/usr/bin/env lua
+
+local home = os.getenv("HOME")
+package.path = package.path .. string.format(";%s/.scripts/menu/lua/?.lua", home)
+
+local lfs = require("lfs")
+local menuhelper = require("menuhelper")
+
+local function scan_dir(directory, pattern)
+    local files = {}
+    local p = io.popen('find "'..directory..'" -type f -name "'..pattern..'"')
+    if p then
+        for file in p:lines() do
+            table.insert(files, file)
+        end
+        p:close()
+    end
+    return files
+end
+
+local function parse_desktop_file(filepath)
+    local file = io.open(filepath, "r")
+    if not file then return nil end
+
+    local name, hidden
+
+    for line in file:lines() do
+        Name_match = line:match("^Name=(.+)")
+        NoDisplay_match = line:match("^NoDisplay=(.+)")
+        Hidden_match = line:match("^Hidden=(.+)")
+        OnlyShowIn_match = line:match("^OnlyShowIn=(.+)")
+
+        if not name and Name_match then
+            name = Name_match
+        end
+
+        if not hidden and NoDisplay_match then
+            hidden = "true" == NoDisplay_match:lower()
+        end
+
+        if not hidden and Hidden_match then
+            hidden = "true" == Hidden_match:lower()
+        end
+
+        if not hidden and OnlyShowIn_match then
+            hidden = "true"
+        end
+    end
+
+    file:close()
+    return name, hidden
+end
+
+local function get_desktop_entries()
+    local desktop_dirs = {
+        "/usr/share/applications",
+        "/usr/local/share/applications",
+        os.getenv("HOME").."/.local/share/applications"
+    }
+
+    local entries = {}
+
+    for _, dir in ipairs(desktop_dirs) do
+        local f = io.open(dir)
+        if f then
+            f:close()
+
+            local files = scan_dir(dir, "*.desktop")
+
+            for _, filepath in ipairs(files) do
+                local new_entry = {}
+                new_entry.filepath = filepath
+                new_entry.name, new_entry.is_hidden = parse_desktop_file(filepath)
+
+                local found = false
+                for i, entry in ipairs(entries) do
+                    if entry.name == new_entry.name then
+                        found = true
+                        new_entry.is_hidden = new_entry.is_hidden or entry.is_hidden
+                        entries[i] = new_entry
+                    end
+                end
+
+                if new_entry.name and not found then
+                    table.insert(entries, new_entry)
+                end
+            end
+        end
+    end
+
+    return entries
+end
+
+local function get_path_of_selected_entry(entries, selected)
+    for _, entry in ipairs(entries) do
+        if entry.name == selected then
+            return entry.filepath
+        end
+    end
+end
+
+local USER_DESKTOP_ENTRIES = os.getenv("HOME").."/.local/share/applications"
+
+local entries = get_desktop_entries()
+
+local function copy_desktop_file_to_home()
+    
+end
+local function hide_desktop_entries()
+
+    local to_display = {}
+    for _, entry in ipairs(entries) do
+        if not entry.is_hidden then
+            table.insert(to_display, entry.name)
+        end
+    end
+
+    local menuopts = table.concat(to_display, "\n")
+
+    local selected = menuhelper.Menu(menuopts)
+
+    if selected then
+        local filepath = get_path_of_selected_entry(entries, selected)
+        local filename = filepath:match("([^/]+)$")
+        local file = io.open(filepath, "r")
+        local content
+
+        if file then
+            print("File opened")
+            content = file:read("*all")
+            file:close()
+        else
+            content = nil
+        end
+
+        if content then
+            if not content:find("Hidden=") then
+                local start_index, end_index = content:find("%[Desktop Entry%]\n")
+                if start_index then
+                    content = content:sub(1, end_index).."Hidden=true\n"..content:sub(end_index+1)
+                end
+            else
+                content = content:gsub("Hidden=false", "Hidden=true")
+            end
+            local new_filepath = USER_DESKTOP_ENTRIES.."/"..filename
+            print("New filepath: "..new_filepath)
+            local ok, message, error = lfs.mkdir(USER_DESKTOP_ENTRIES)
+            if not ok then
+                print("Error creating directory: "..error)
+                print("Message: "..message)
+            end
+            local dir_attrib = lfs.attributes(USER_DESKTOP_ENTRIES)
+            if not dir_attrib or dir_attrib.mode ~= "directory" then
+                lfs.mkdir(USER_DESKTOP_ENTRIES)
+            end
+            file = io.open(new_filepath, "w")
+            if file then
+                file:write(content)
+                file:close()
+            end
+        end
+    end
+end
+
+hide_desktop_entries()
+

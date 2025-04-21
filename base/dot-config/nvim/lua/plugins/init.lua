@@ -1,20 +1,21 @@
 return {
     {"CopilotC-Nvim/CopilotChat.nvim",
-        branch = "canary",
+        branch = "main",
         dependencies = {
-            { "github/copilot.vim" }, -- or github/copilot.vim
+            { 
+                "github/copilot.vim",
+                config = function()
+                    vim.g.copilot_enabled = false
+                end
+            }, -- or github/copilot.vim
             { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
         },
         build = "make tiktoken", -- Only on MacOS or Linux
         opts = {
-            debug = true,
-            model= "claude-3.5-sonnet",
-            auto_intert_mode = true,
-            insert_at_end = true,
-
-            -- See Configuration section for rest
+            model= "claude-3.7-sonnet",
+            auto_insert_mode = true,
+            chat_autocomplete = true,
         },
-        -- See Commands section for default commands if you want to lazy load on them
     },
     {"brenoprata10/nvim-highlight-colors", -- nice highlighting for css colours
         opts = {

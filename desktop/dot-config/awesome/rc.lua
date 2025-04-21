@@ -1,26 +1,17 @@
--- If LuaRocks is installed, make sure that packages installed through it are
--- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
-
--- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
--- Widget and layout library
 local wibox = require("wibox")
--- Theme handling library
 local beautiful = require("beautiful")
--- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
--- Enable hotkeys help widget for VIM and other apps
--- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
--- another config (This code will only ever execute for the fallback config)
+-- another config (Thi code will only ever execute for the fallback config)
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
                      title = "Oops, there were errors during startup!",
@@ -247,6 +238,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
               {description = "run prompt", group = "launcher"}),
 
+    --[[
     awful.key({ modkey }, "x",
               function ()
                   awful.prompt.run {
@@ -257,6 +249,16 @@ globalkeys = gears.table.join(
                   }
               end,
               {description = "lua execute prompt", group = "awesome"}),
+    ]]
+    awful.key({ modkey },  "x", 
+        function() awful.screen.focused().mypromptbox.run({
+            prompt       = "Run Lua code: ",
+            --textbox      = awful.screen.focused().mypromptbox.widget,
+            exe_callback = awful.util.eval,
+            history_path = awful.util.get_cache_dir() .. "/history_eval"
+        })
+        end,
+        {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"})
@@ -498,6 +500,5 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
 awful.spawn.with_shell("walset")
-awful.spawn.with_shell("killall picom ; picom")
-awful.spawn.with_shell("killall cbatticon ; cbatticon")
+awful.spawn.with_shell("killall picom ; picom --no-fading-openclose")
 -- }}}
