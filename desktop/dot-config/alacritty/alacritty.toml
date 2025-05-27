@@ -1,7 +1,7 @@
 [general]
-import = [
-    "theme.toml"
-    ]
+#import = [
+#    "theme.toml"
+#]
 
 [window.dimensions]
 columns = 90
