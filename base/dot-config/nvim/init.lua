@@ -1,10 +1,7 @@
 -- Wish list: ---
--- explore treesitter memes a little more
--- debugging?
 -- finish telescope conf
--- moar lazyness
--- figure our new lsp memes
--- make statusline
+-- improve completion setup
+-- sort our debugging so i dont have to keep using vscode.
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
