@@ -1,20 +1,17 @@
 {
     "runtime": {
         "version": "LuaJIT",
-        "path": [
-            "lua/?.lua",
-            "lua/?/init.lua"
-        ]
     },
     "diagnostics.globals": ["vim"],
     "workspace": {
         "checkThirdParty": false,
         "library": [
             // Runtime and builtin libraries.
-            "$VIMRUNTIME",
+            "$VIMRUNTIME/lua",
             "${3rd}/luv/library",
             // Include some plugins for API completion.
-            "$XDG_DATA_HOME/nvim/lazy/lazy.nvim",
+            "$XDG_DATA_HOME/nvim/lazy/lazy.nvim/lua",
+            "$XDG_DATA_HOME/nvim/lazy/blink.cmp/lua"
         ]
     }
 }

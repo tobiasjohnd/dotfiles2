@@ -16,19 +16,14 @@ vim.keymap.set("n", "n", "nzz")
 vim.keymap.set("n", "N", "Nzz")
 
 -- yank and delete to system clipboard
-vim.keymap.set({"n", "v"}, "Y", [["+y]])
-vim.keymap.set({"n", "v"}, "D", [["+d]])
+vim.keymap.set({ "n", "v" }, "Y", [["+y]])
+vim.keymap.set({ "n", "v" }, "D", [["+d]])
 
 -- Quickfix and Diagnostics
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
-
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Git
 vim.keymap.set("n", "<leader>gs", ":!git status<CR>")
