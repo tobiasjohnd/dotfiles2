@@ -48,3 +48,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 vim.lsp.enable({ 'luals' })
+-- jdtls not enabled here nvim-jdtls sorts itself out.
