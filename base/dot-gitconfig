@@ -7,3 +7,5 @@
 	insteadOf = https://github.com/
 [init]
 	defaultbranch = main
+[core]
+	autocrlf = input

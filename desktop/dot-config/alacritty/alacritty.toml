@@ -19,15 +19,15 @@ unfocused_hollow = true
 size = 13
 
 [font.bold]
-family = "CaskaydiaMono NF"
+family = "CascadiaMono NF"
 style = "Bold"
 
 [font.italic]
-family = "CaskaydiaMono NF"
+family = "CascadiaMono NF"
 style = "Italic"
 
 [font.normal]
-family = "CaskaydiaMono NF"
+family = "CascadiaMono NF"
 style = "Regular"
 
 [selection]

@@ -9,7 +9,7 @@
 
 (defsrc
   esc caps spc lalt ralt
-  a s d f j k l ;
+  s d f j k l
 )
 
 (defvar
@@ -18,14 +18,12 @@
 )
 
 (defalias
-  lsft (tap-hold-press $tap-time $hold-time a lsft) 
-  lalt (tap-hold-press $tap-time $hold-time s lalt)
-  lctl (tap-hold-press $tap-time $hold-time d lctl)
-  lmet (tap-hold-press $tap-time $hold-time f lmet)
-  rmet (tap-hold-press $tap-time $hold-time j rmet)
-  rctl (tap-hold-press $tap-time $hold-time k rctl)
-  ralt (tap-hold-press $tap-time $hold-time l ralt)
-  rsft (tap-hold-press $tap-time $hold-time ; rsft)
+  s (tap-hold-press $tap-time $hold-time s lalt)
+  d (tap-hold-press $tap-time $hold-time d lmet)
+  f (tap-hold-press $tap-time $hold-time f lctl)
+  j (tap-hold-press $tap-time $hold-time j rctl)
+  k (tap-hold-press $tap-time $hold-time k rmet)
+  l (tap-hold-press $tap-time $hold-time l ralt)
 
   lyrh (
     tap-hold-press-timeout $tap-time $hold-time spc
@@ -36,10 +34,10 @@
 
 (deflayer base
   lrld esc @lyrh lsft rsft
-  _ _ _ _ _ _ _ _
+  _ _ _ _ _ _
 )
 
 (deflayer homerowmods
   _ _ XX _ _
-  @lmet @lalt @lctl @lsft @rsft @rctl @ralt @rmet
+  @s @d @f @j @k @l
 )
