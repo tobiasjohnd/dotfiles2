@@ -4,6 +4,8 @@ local menubar = require("menubar")
 local vars = require("vars")
 local keymaps = require("keymaps")
 
+local batery = require("statusbar.battery")
+
 menubar.utils.terminal = vars.terminal -- Set the terminal for applications that require it
 local mytextclock = wibox.widget.textclock()
 
@@ -51,6 +53,7 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
+            batery(),
             mytextclock,
         },
     }
