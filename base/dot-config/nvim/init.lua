@@ -1,8 +1,3 @@
--- Wish list: ---
--- finish telescope conf
--- improve completion setup
--- sort our debugging so i dont have to keep using vscode.
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
