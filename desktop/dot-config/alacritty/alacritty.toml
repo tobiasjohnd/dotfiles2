@@ -1,8 +1,3 @@
-[general]
-#import = [
-#    "theme.toml"
-#]
-
 [window.dimensions]
 columns = 90
 lines = 30
@@ -17,18 +12,6 @@ unfocused_hollow = true
 
 [font]
 size = 13
-
-[font.bold]
-family = "CascadiaMono NF"
-style = "Bold"
-
-[font.italic]
-family = "CascadiaMono NF"
-style = "Italic"
-
-[font.normal]
-family = "CascadiaMono NF"
-style = "Regular"
 
 [selection]
 save_to_clipboard = true
