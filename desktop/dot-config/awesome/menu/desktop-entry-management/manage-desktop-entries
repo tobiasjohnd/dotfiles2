@@ -1,0 +1,238 @@
+#!/usr/bin/env lua
+
+local HOME = os.getenv("HOME")
+package.path = package.path .. string.format(";%s/.scripts/menu/lua/?.lua", HOME)
+
+local menuhelper = require("menuhelper")
+
+local SYSTEM_DESKTOP_ENTRIES = {
+    "/usr/share/applications",
+    "/usr/local/share/applications"
+}
+local USER_DESKTOP_ENTRIES = HOME.."/.local/share/applications"
+
+local function get_desktop_files(directory)
+    local files = {}
+    local p = io.popen('find "'..directory..'" -type f -name "*.desktop"')
+    if p then
+        for file in p:lines() do
+            table.insert(files, file)
+        end
+        p:close()
+    end
+    return files
+end
+
+local function get_system_desktop_files()
+    local files = {}
+    for _, directory in ipairs(SYSTEM_DESKTOP_ENTRIES) do
+        for _, file in ipairs(get_desktop_files(directory)) do
+            table.insert(files, file)
+        end
+    end
+    return files
+end
+
+local function get_user_desktop_files()
+    return get_desktop_files(USER_DESKTOP_ENTRIES)
+end
+
+local function parse_desktop_file(filepath)
+    local file = io.open(filepath, "r")
+    if not file then return nil end
+
+    local name, hidden
+
+    for line in file:lines() do
+        Name_match = line:match("^Name=(.+)")
+        NoDisplay_match = line:match("^NoDisplay=(.+)")
+        Hidden_match = line:match("^Hidden=(.+)")
+        OnlyShowIn_match = line:match("^OnlyShowIn=(.+)")
+
+        if not name and Name_match then
+            name = Name_match
+        end
+
+        if not hidden and NoDisplay_match then
+            hidden = "true" == NoDisplay_match:lower()
+        end
+
+        if not hidden and Hidden_match then
+            hidden = "true" == Hidden_match:lower()
+        end
+
+        if not hidden and OnlyShowIn_match then
+            hidden = "true"
+        end
+    end
+
+    file:close()
+    return name, hidden
+end
+
+local function get_desktop_entries()
+    local entries = {}
+
+    -- get the desktop entries from user directories first
+    local user_files = get_user_desktop_files()
+    for _, filepath in ipairs(user_files) do
+        local new_entry = {}
+        new_entry.filepath = filepath
+        new_entry.name, new_entry.is_hidden = parse_desktop_file(filepath)
+        new_entry.in_user_dir = true
+        table.insert(entries, new_entry)
+    end
+
+    -- then get the desktop entries from the system directories skipping any duplicates
+    local system_files = get_system_desktop_files()
+    for _, filepath in ipairs(system_files) do
+        local new_entry = {}
+        new_entry.filepath = filepath
+        new_entry.name, new_entry.is_hidden = parse_desktop_file(filepath)
+        new_entry.in_user_dir = false
+
+        local found = false
+        for _, entry in ipairs(entries) do
+            if entry.name == new_entry.name then
+                found = true
+            end
+        end
+        if not found then
+            table.insert(entries, new_entry)
+        end
+    end
+
+    return entries
+end
+
+local function get_entry_by_name(entries, selected)
+    for _, entry in ipairs(entries) do
+        if entry.name == selected then
+            return entry
+        end
+    end
+    return nil
+end
+
+local function choose_entry(show_hidden)
+    local entries = get_desktop_entries()
+    local desktop_entry_menu_options = {}
+    for _, entry in ipairs(entries) do
+        if show_hidden or not entry.is_hidden then
+            table.insert(desktop_entry_menu_options, entry.name)
+        end
+    end
+    table.insert(desktop_entry_menu_options, "hidden")
+    table.insert(desktop_entry_menu_options, "exit")
+    local selection = menuhelper.Menu(desktop_entry_menu_options)[1]
+    return selection, get_entry_by_name(entries, selection)
+end
+
+local function choose_action()
+    local available_actions = {
+        "toggle hide",
+        "edit",
+        "restore",
+        "cancel"
+    }
+    local selection = menuhelper.Menu(available_actions)[1]
+    return selection
+end
+
+local function copy_desktop_file_to_user_dir(entry)
+    local filename = entry.filepath:match("([^/]+)$")
+    local new_filepath = USER_DESKTOP_ENTRIES.."/"..filename
+    os.execute("cp "..entry.filepath.." "..new_filepath)
+    entry.filepath = new_filepath
+    return entry
+end
+
+local function toggle_hide_desktop_file(entry)
+    -- todo: no worky, make it worky :)
+    local filepath = entry.filepath
+    local file = io.open(filepath, "r")
+    local content
+
+    if file then
+        print("File opened")
+        content = file:read("*all")
+        file:close()
+    else
+        content = nil
+    end
+
+    if content then
+        if not content:find("Hidden=") then
+            local start_index, end_index = content:find("%[Desktop Entry%]\n")
+            if start_index then
+                content = content:sub(1, end_index).."Hidden=true\n"
+                content = content..content:sub(end_index+1)
+            end
+        else
+            if entry.is_hidden then
+                content = content:gsub("Hidden=true", "Hidden=false")
+            else
+                content = content:gsub("Hidden=false", "Hidden=true")
+            end
+        end
+        file = io.open(filepath, "w")
+        if file then
+            file:write(content)
+            file:close()
+        end
+    end
+end
+
+local function edit_desktop_file(entry)
+    os.execute(os.getenv("TERMINAL").." nvim "..entry.filepath)
+end
+
+local function restore_desktop_file(entry)
+    local system_files = get_system_desktop_files()
+    for _, filepath in ipairs(system_files) do
+        local system_entry_name = parse_desktop_file(filepath)
+        if system_entry_name == entry.name then
+            os.execute("cp "..filepath.." "..entry.filepath)
+            return
+        end
+    end
+end
+
+local function main()
+    local exit = false
+    local show_hidden = false
+    local selected_action
+
+    while not exit do
+        local selection, entry = choose_entry(show_hidden)
+
+        if selection == "hidden" then
+            show_hidden = not show_hidden
+
+        elseif selection == "exit" then
+            exit = true
+
+        elseif entry then
+            if not entry.in_user_dir then
+                entry = copy_desktop_file_to_user_dir(entry)
+            end
+            selected_action = choose_action()
+
+            if selected_action == "toggle hide" then
+                toggle_hide_desktop_file(entry)
+            elseif selected_action == "edit" then
+                edit_desktop_file(entry)
+            elseif selected_action == "restore" then
+                restore_desktop_file(entry)
+            end
+        else
+            if selection then
+                print("invalid entry selected")
+                print(selection)
+            end
+            exit = true
+        end
+    end
+end
+
+main()
