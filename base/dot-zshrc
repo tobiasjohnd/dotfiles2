@@ -93,21 +93,6 @@ export FZF_COMPLETION_OPTS='--info=inline-right --walker=file,dir,follow,hidden'
 eval "$(ssh-agent -s)" > /dev/null
 alias ssh-login="ssh-add ~/.ssh/id_ed25519"
 
-# make nnn quitcd work
-f ()
-{
-    [ "${NNNLVL:-0}" -eq 0 ] || {
-        echo "nnn is already running"
-        return
-    }
-    NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-    command nnn "$@"
-    [ ! -f "$NNN_TMPFILE" ] || {
-        . "$NNN_TMPFILE"
-        rm -f -- "$NNN_TMPFILE" > /dev/null
-    }
-}
-
 # [ -f "/home/tobyd/.ghcup/env" ] && . "/home/tobyd/.ghcup/env" # ghcup-env
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
