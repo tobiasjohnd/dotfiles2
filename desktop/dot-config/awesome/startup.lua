@@ -9,4 +9,3 @@ root.keys(keymaps.globalkeys)
 
 awful.spawn.with_shell(vars.wallpaper)
 awful.spawn.with_shell("killall picom ; picom --no-fading-openclose")
-awful.spawn.with_shell("killall pipewire ; pipewire")
