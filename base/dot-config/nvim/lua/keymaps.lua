@@ -36,3 +36,6 @@ vim.keymap.set("n", "<leader>ga<space>", ":!git add ")
 vim.keymap.set("n", "<leader>ga", ":!git add %<CR>")
 vim.keymap.set("n", "<leader>gaa", ":!git add --all<CR>")
 vim.keymap.set("n", "<leader>gau", ":!git add -u<CR>")
+
+vim.keymap.set("n", "<leader>m", ":Mason<CR>")
+vim.keymap.set("n", "<leader>l", ":Lazy<CR>")
