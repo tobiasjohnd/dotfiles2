@@ -37,38 +37,18 @@ M.globalkeys = gears.table.join(
         { description = "swap with next client by index", group = "client" }),
     key({ modkey, "Shift" }, "k", function() awful.client.swap.byidx(-1) end,
         { description = "swap with previous client by index", group = "client" }),
-    key({ modkey, "Control" }, "j", function() awful.screen.focus_relative(1) end,
-        { description = "focus the next screen", group = "screen" }),
-    key({ modkey, "Control" }, "k", function() awful.screen.focus_relative(-1) end,
-        { description = "focus the previous screen", group = "screen" }),
     key({ modkey, }, "u", awful.client.urgent.jumpto,
         { description = "jump to urgent client", group = "client" }),
-    key({ modkey, }, "Tab",
-        function()
-            awful.client.focus.history.previous()
-            if client.focus then
-                client.focus:raise()
-            end
-        end,
-        { description = "go back", group = "client" }),
 
     -- Standard program
     key({ modkey, "Control" }, "r", awesome.restart,
         { description = "reload awesome", group = "awesome" }),
-    key({ modkey, "Shift" }, "q", awesome.quit,
+    key({ modkey, "Control" }, "q", awesome.quit,
         { description = "quit awesome", group = "awesome" }),
     key({ modkey, }, "l", function() awful.tag.incmwfact(0.05) end,
         { description = "increase master width factor", group = "layout" }),
     key({ modkey, }, "h", function() awful.tag.incmwfact(-0.05) end,
         { description = "decrease master width factor", group = "layout" }),
-    key({ modkey, "Shift" }, "h", function() awful.tag.incnmaster(1, nil, true) end,
-        { description = "increase the number of master clients", group = "layout" }),
-    key({ modkey, "Shift" }, "l", function() awful.tag.incnmaster(-1, nil, true) end,
-        { description = "decrease the number of master clients", group = "layout" }),
-    key({ modkey, "Control" }, "h", function() awful.tag.incncol(1, nil, true) end,
-        { description = "increase the number of columns", group = "layout" }),
-    key({ modkey, "Control" }, "l", function() awful.tag.incncol(-1, nil, true) end,
-        { description = "decrease the number of columns", group = "layout" }),
     key({ modkey, }, "r", function() awful.layout.inc(1) end,
         { description = "select next", group = "layout" }),
 
@@ -90,7 +70,7 @@ M.globalkeys = gears.table.join(
 )
 
 M.clientkeys = gears.table.join(
-    key({ modkey, }, "f",
+    key({ modkey, "Control" }, "f",
         function(c)
             c.fullscreen = not c.fullscreen
             c:raise()
@@ -102,8 +82,6 @@ M.clientkeys = gears.table.join(
         { description = "toggle floating", group = "client" }),
     key({ modkey, "Control" }, "Return", function(c) c:swap(awful.client.getmaster()) end,
         { description = "move to master", group = "client" }),
-    key({ modkey, }, "o", function(c) c:move_to_screen() end,
-        { description = "move to screen", group = "client" }),
     key({ modkey, }, "t", function(c) c.ontop = not c.ontop end,
         { description = "toggle keep on top", group = "client" }),
     key({ modkey, }, "n",
@@ -180,58 +158,5 @@ for _, tag in ipairs(vars.tags) do
             { description = "toggle focused client on tag #" .. tagName, group = "tag" })
     )
 end
-
-M.clientbuttons = gears.table.join(
-    awful.button({}, 1, function(c)
-        c:emit_signal("request::activate", "mouse_click", { raise = true })
-    end),
-    awful.button({ modkey }, 1, function(c)
-        c:emit_signal("request::activate", "mouse_click", { raise = true })
-        awful.mouse.client.move(c)
-    end),
-    awful.button({ modkey }, 3, function(c)
-        c:emit_signal("request::activate", "mouse_click", { raise = true })
-        awful.mouse.client.resize(c)
-    end)
-)
-
-M.taglist_buttons = gears.table.join(
-    awful.button({}, 1, function(t) t:view_only() end),
-    awful.button({ modkey }, 1, function(t)
-        if client.focus then
-            client.focus:move_to_tag(t)
-        end
-    end),
-    awful.button({}, 3, awful.tag.viewtoggle),
-    awful.button({ modkey }, 3, function(t)
-        if client.focus then
-            client.focus:toggle_tag(t)
-        end
-    end),
-    awful.button({}, 4, function(t) awful.tag.viewnext(t.screen) end),
-    awful.button({}, 5, function(t) awful.tag.viewprev(t.screen) end)
-)
-
-M.tasklist_buttons = gears.table.join(
-    awful.button({}, 1, function(c)
-        if c == client.focus then
-            c.minimized = true
-        else
-            c:emit_signal(
-                "request::activate",
-                "tasklist",
-                { raise = true }
-            )
-        end
-    end),
-    awful.button({}, 3, function()
-        awful.menu.client_list({ theme = { width = 250 } })
-    end),
-    awful.button({}, 4, function()
-        awful.client.focus.byidx(1)
-    end),
-    awful.button({}, 5, function()
-        awful.client.focus.byidx(-1)
-    end))
 
 return M
