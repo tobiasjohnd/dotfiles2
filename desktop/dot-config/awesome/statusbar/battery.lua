@@ -64,7 +64,13 @@ local function worker(user_args)
                     capacity = capacity + capacities[i]
                 end
             end
-            charge = charge / capacity
+
+            -- Avoid division by zero if no capacity is found
+            if capacity > 0 then
+                charge = charge / capacity
+            else
+                charge = 0
+            end
 
             if status == 'Charging' then
                 level_widget.text = string.format('(%d%%)', charge)
