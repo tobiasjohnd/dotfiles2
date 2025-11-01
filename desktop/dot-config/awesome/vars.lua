@@ -7,7 +7,8 @@ awful.layout.layouts = {
 }
 
 return {
-    terminal = "alacritty",
+    term = "alacritty",
+    mod = "Mod4",
     editor = os.getenv("EDITOR") or "nvim",
     wallpaper = "feh --bg-fill $(ls -d $HOME/Wallpaper/* | shuf | head -1)",
     tags = {

@@ -6,26 +6,24 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
 
-local vars = require("vars")
-local modkey = "Mod4"
-local terminal = "alacritty"
+local v = require("vars")
 
 local key = awful.key
 M.globalkeys = gears.table.join(
-    key({ modkey, }, "Return", function() awful.spawn(terminal) end,
+    key({ v.mod, }, "Return", function() awful.spawn(v.term) end,
         { description = "open a terminal", group = "launcher" }),
-    key({ modkey, }, "/", hotkeys_popup.show_help,
+    key({ v.mod, }, "/", hotkeys_popup.show_help,
         { description = "show help", group = "awesome" }),
-    key({ modkey, }, "Escape", awful.tag.history.restore,
+    key({ v.mod, }, "Escape", awful.tag.history.restore,
         { description = "go back", group = "tag" }),
 
-    key({ modkey, }, "j",
+    key({ v.mod, }, "j",
         function()
             awful.client.focus.byidx(1)
         end,
         { description = "focus next by index", group = "client" }
     ),
-    key({ modkey, }, "k",
+    key({ v.mod, }, "k",
         function()
             awful.client.focus.byidx(-1)
         end,
@@ -33,26 +31,26 @@ M.globalkeys = gears.table.join(
     ),
 
     -- Layout manipulation
-    key({ modkey, "Shift" }, "j", function() awful.client.swap.byidx(1) end,
+    key({ v.mod, "Shift" }, "j", function() awful.client.swap.byidx(1) end,
         { description = "swap with next client by index", group = "client" }),
-    key({ modkey, "Shift" }, "k", function() awful.client.swap.byidx(-1) end,
+    key({ v.mod, "Shift" }, "k", function() awful.client.swap.byidx(-1) end,
         { description = "swap with previous client by index", group = "client" }),
-    key({ modkey, }, "u", awful.client.urgent.jumpto,
+    key({ v.mod, }, "u", awful.client.urgent.jumpto,
         { description = "jump to urgent client", group = "client" }),
 
     -- Standard program
-    key({ modkey, "Control" }, "r", awesome.restart,
+    key({ v.mod, "Control" }, "r", awesome.restart,
         { description = "reload awesome", group = "awesome" }),
-    key({ modkey, "Control" }, "q", awesome.quit,
+    key({ v.mod, "Control" }, "q", awesome.quit,
         { description = "quit awesome", group = "awesome" }),
-    key({ modkey, }, "l", function() awful.tag.incmwfact(0.05) end,
+    key({ v.mod, }, "l", function() awful.tag.incmwfact(0.05) end,
         { description = "increase master width factor", group = "layout" }),
-    key({ modkey, }, "h", function() awful.tag.incmwfact(-0.05) end,
+    key({ v.mod, }, "h", function() awful.tag.incmwfact(-0.05) end,
         { description = "decrease master width factor", group = "layout" }),
-    key({ modkey, }, "r", function() awful.layout.inc(1) end,
+    key({ v.mod, }, "r", function() awful.layout.inc(1) end,
         { description = "select next", group = "layout" }),
 
-    key({ modkey, "Control" }, "n",
+    key({ v.mod, "Control" }, "n",
         function()
             local c = awful.client.restore()
             -- Focus restored client
@@ -65,33 +63,33 @@ M.globalkeys = gears.table.join(
         { description = "restore minimized", group = "client" }),
 
     -- Menubar
-    key({ modkey }, "space", function() menubar.show() end,
+    key({ v.mod }, "space", function() menubar.show() end,
         { description = "show the menubar", group = "launcher" })
 )
 
 M.clientkeys = gears.table.join(
-    key({ modkey, "Control" }, "f",
+    key({ v.mod, "Control" }, "f",
         function(c)
             c.fullscreen = not c.fullscreen
             c:raise()
         end,
         { description = "toggle fullscreen", group = "client" }),
-    key({ modkey, }, "w", function(c) c:kill() end,
+    key({ v.mod, }, "w", function(c) c:kill() end,
         { description = "close", group = "client" }),
-    key({ modkey, "Control" }, "space", awful.client.floating.toggle,
+    key({ v.mod, "Control" }, "space", awful.client.floating.toggle,
         { description = "toggle floating", group = "client" }),
-    key({ modkey, "Control" }, "Return", function(c) c:swap(awful.client.getmaster()) end,
+    key({ v.mod, "Control" }, "Return", function(c) c:swap(awful.client.getmaster()) end,
         { description = "move to master", group = "client" }),
-    key({ modkey, }, "t", function(c) c.ontop = not c.ontop end,
+    key({ v.mod, }, "t", function(c) c.ontop = not c.ontop end,
         { description = "toggle keep on top", group = "client" }),
-    key({ modkey, }, "n",
+    key({ v.mod, }, "n",
         function(c)
             -- The client currently has the input focus, so it cannot be
             -- minimized, since minimized clients can't have the focus.
             c.minimized = true
         end,
         { description = "minimize", group = "client" }),
-    key({ modkey, }, "m",
+    key({ v.mod, }, "m",
         function(c)
             c.maximized = not c.maximized
             c:raise()
@@ -135,25 +133,25 @@ local function toggle_on_tag(label)
     end
 end
 
-for _, tag in ipairs(vars.tags) do
+for _, tag in ipairs(v.tags) do
     local tagKey = tag[2]
     local tagName = tag[1]
     M.globalkeys = gears.table.join(
         M.globalkeys,
         -- View tag only.
-        key({ modkey }, tagKey,
+        key({ v.mod }, tagKey,
             function() view_tag(tagName) end,
             { description = "view tag #" .. tagName, group = "tag" }),
         -- Toggle tag display.
-        key({ modkey, "Control" }, tagKey,
+        key({ v.mod, "Control" }, tagKey,
             function() toggle_tag(tagName) end,
             { description = "toggle tag #" .. tagName, group = "tag" }),
         -- Move client to tag.
-        key({ modkey, "Shift" }, tagKey,
+        key({ v.mod, "Shift" }, tagKey,
             function() move_to_tag(tagName) end,
             { description = "move focused client to tag #" .. tagName, group = "tag" }),
         -- Toggle tag on focused client.
-        key({ modkey, "Control", "Shift" }, tagKey,
+        key({ v.mod, "Control", "Shift" }, tagKey,
             function() toggle_on_tag(tagName) end,
             { description = "toggle focused client on tag #" .. tagName, group = "tag" })
     )
