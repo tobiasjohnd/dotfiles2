@@ -15,7 +15,6 @@ local function worker(user_args)
     local timeout = 10
 
     local level_widget = wibox.widget {
-        font = font,
         widget = wibox.widget.textbox
     }
 
@@ -64,13 +63,7 @@ local function worker(user_args)
                     capacity = capacity + capacities[i]
                 end
             end
-
-            -- Avoid division by zero if no capacity is found
-            if capacity > 0 then
-                charge = charge / capacity
-            else
-                charge = 0
-            end
+            charge = charge / capacity
 
             if status == 'Charging' then
                 level_widget.text = string.format('(%d%%)', charge)
