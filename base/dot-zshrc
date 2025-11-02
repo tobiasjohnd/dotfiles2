@@ -56,7 +56,7 @@ alias sl='sudo $(fc -ln -1)'
 # git bare repo alias for dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.config-repo/ --work-tree=$HOME'
 alias ls='ls --color=auto'
-alias tmux='tmux attach -t 0 || tmux new -s 0'
+alias tmux='tmux new -A'
 alias gl='git log --oneline --graph --parents --decorate'
 alias g='git'
 alias gs='git status'
