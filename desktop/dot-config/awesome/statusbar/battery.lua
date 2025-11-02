@@ -32,13 +32,6 @@ local function worker(user_args)
         layout = wibox.layout.fixed.horizontal,
     }
 
-    local handle = io.popen("acpi -i")
-    if handle then
-        local output = handle:read("*a") -- reads all
-        handle:close()
-        -- process output
-        naughty.notify({ text = output })
-    end
     watch("acpi -i", timeout,
         function(widget, stdout)
             local battery_info = {}
