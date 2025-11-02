@@ -4,10 +4,9 @@ if [ ! -d $plugin_dir ]; then
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $plugin_dir/p10k
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $plugin_dir/syntax-highlighting
   git clone https://github.com/zsh-users/zsh-completions.git $plugin_dir/zsh-completions
+  git clone https://github.com/Aloxaf/fzf-tab $plugin_dir/fzf-tab
   git clone https://github.com/zsh-users/zsh-autosuggestions $plugin_dir/zsh-autosuggestions
 fi
-
-echo "have a nice day :)"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -74,6 +73,7 @@ alias p='paru'
 # TODO: make it so i can have an alias that takes me to a session selection dialogue.
 
 # source plugins
+source $plugin_dir/fzf-tab/fzf-tab.plugin.zsh
 source $plugin_dir/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $plugin_dir/p10k/powerlevel10k.zsh-theme
 source $plugin_dir/syntax-highlighting/zsh-syntax-highlighting.zsh # needs to go at the end

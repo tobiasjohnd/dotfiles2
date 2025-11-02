@@ -8,10 +8,11 @@ vim.diagnostic.config({
         current_line = true,
     },
 })
+vim.opt.wrap = true
 
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.termguicolors = false
+vim.opt.termguicolors = true
 
 vim.opt.showmode = false
 vim.opt.cmdheight = 1
@@ -24,7 +25,8 @@ vim.opt.smartindent = true
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
-vim.opt.wrap = false
+vim.opt.wrap = true
+vim.opt.linebreak = true
 
 vim.opt.mouse = 'a'
 vim.opt.updatetime = 100
