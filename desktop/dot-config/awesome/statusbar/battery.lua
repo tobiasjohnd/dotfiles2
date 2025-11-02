@@ -8,14 +8,12 @@ local WIDGET_DIR = HOME .. '/.config/awesome/awesome-wm-widgets/battery-widget'
 
 local battery_widget = {}
 local function worker(user_args)
-
     local margin_left = 0
     local margin_right = 0
 
     local timeout = 10
 
     local level_widget = wibox.widget {
-        font = font,
         widget = wibox.widget.textbox
     }
 
@@ -24,6 +22,13 @@ local function worker(user_args)
         layout = wibox.layout.fixed.horizontal,
     }
 
+    local handle = io.popen("acpi -i")
+    if handle then
+        local output = handle:read("*a") -- reads all
+        handle:close()
+        -- process output
+        naughty.notify({ text = output })
+    end
     watch("acpi -i", timeout,
         function(widget, stdout)
             local battery_info = {}
@@ -36,7 +41,7 @@ local function worker(user_args)
                     -- entry in capacities of zero. If a battery has status
                     -- "Unknown" then there is no capacity reported and we treat it
                     -- as zero capactiy for later calculations.
-                    table.insert(battery_info, {status = status, charge = tonumber(charge_str)})
+                    table.insert(battery_info, { status = status, charge = tonumber(charge_str) })
                     table.insert(capacities, 0)
                 end
 
@@ -80,4 +85,3 @@ local function worker(user_args)
 end
 
 return setmetatable(battery_widget, { __call = function(_, ...) return worker(...) end })
-
