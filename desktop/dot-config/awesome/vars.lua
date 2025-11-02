@@ -1,4 +1,4 @@
-awful = require("awful")
+local awful = require("awful")
 
 awful.layout.layouts = {
     awful.layout.suit.tile,
@@ -10,7 +10,7 @@ return {
     term = "alacritty",
     mod = "Mod4",
     editor = os.getenv("EDITOR") or "nvim",
-    wallpaper = "feh --bg-fill $(ls -d $HOME/Wallpaper/* | shuf | head -1)",
+    wallpaper_path = os.getenv("HOME") .. "/wallpaper.jpg",
     tags = {
         { "main",  "a", awful.layout.layouts[1] },
         { "web",   "s", awful.layout.layouts[1] },

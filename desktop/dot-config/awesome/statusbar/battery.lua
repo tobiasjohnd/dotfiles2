@@ -6,6 +6,16 @@ local wibox = require("wibox")
 local HOME = os.getenv("HOME")
 local WIDGET_DIR = HOME .. '/.config/awesome/awesome-wm-widgets/battery-widget'
 
+-- bodge fix for namespace issue why the fuck they decided to change this is beyond me.
+-- this can be remove after update to v4.4
+local lgi = require("lgi")
+local Gio = lgi.Gio
+local GioUnix = lgi.GioUnix
+if not Gio.UnixInputStream and GioUnix then
+    Gio.UnixInputStream = GioUnix.InputStream
+    Gio.UnixOutputStream = GioUnix.OutputStream
+end
+
 local battery_widget = {}
 local function worker(user_args)
     local margin_left = 0

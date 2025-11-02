@@ -7,5 +7,5 @@ local beautiful = require("beautiful")
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 root.keys(keymaps.globalkeys)
 
-awful.spawn.with_shell(vars.wallpaper)
+gears.wallpaper.maximized(vars.wallpaper_path)
 awful.spawn.with_shell("killall picom ; picom --no-fading-openclose")

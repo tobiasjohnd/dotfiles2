@@ -3,6 +3,7 @@ local M = {}
 local gears = require("gears")
 local awful = require("awful")
 local menubar = require("menubar")
+local wallpaper = require("wallpaper")
 local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
 
@@ -29,6 +30,8 @@ M.globalkeys = gears.table.join(
         end,
         { description = "focus previous by index", group = "client" }
     ),
+    key({ v.mod }, "3", wallpaper.refresh,
+        { description = "change wallpaper", group = "awesome" }),
 
     -- Layout manipulation
     key({ v.mod, "Shift" }, "j", function() awful.client.swap.byidx(1) end,
