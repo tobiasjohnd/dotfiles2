@@ -37,6 +37,8 @@ awful.screen.connect_for_each_screen(function(s)
         filter = awful.widget.tasklist.filter.currenttags,
     }
 
+    s.clock = awful.wibar.textclock
+
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
 
@@ -46,13 +48,15 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             s.mytaglist,
-            s.mypromptbox,
+            --s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
         {             -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
+            spacing = 5,
+            wibox.widget.textclock(),
             battery(),
+            wibox.widget.systray(),
         },
     }
 end)
