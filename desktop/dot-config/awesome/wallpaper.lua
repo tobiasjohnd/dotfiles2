@@ -1,11 +1,24 @@
 local res = screen.primary.geometry
+
 local url = string.format("https://picsum.photos/%s/%s", res.width, res.height)
-local wallpaper_path = os.getenv("HOME") .. "/wallpaper.jpg"
-local cmd = string.format('curl -L -o "%s" "%s"', wallpaper_path, url)
+local wallpapers_home = os.getenv("HOME") .. "/wallpapers"
+local cmd_wall_pick = string.format("find %s -type f | shuf -n 1", wallpapers_home)
 
 local function refresh()
-    os.execute(cmd)
+    local handle = io.popen(cmd_wall_pick)
+    local wallpaper_path = handle:read("*l")
+    handle:close()
+
+    if wallpaper_path == nil or wallpaper_path == "" then
+        wallpaper_path = wallpapers_home .. "/wallpaper.jpg"
+        os.execute(string.format('curl -L -o "%s" "%s"', wallpaper_path, url))
+    end
     require("gears.wallpaper").maximized(wallpaper_path)
 end
 
 return { refresh = refresh }
+
+--- wishlist ---
+
+-- delete wallpapers
+-- open current wallpaper for editing

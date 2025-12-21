@@ -10,7 +10,6 @@ return {
     term = "alacritty",
     mod = "Mod4",
     editor = os.getenv("EDITOR") or "nvim",
-    wallpaper_path = os.getenv("HOME") .. "/wallpaper.jpg",
     tags = {
         { "main",  "a", awful.layout.layouts[1] },
         { "web",   "s", awful.layout.layouts[1] },
