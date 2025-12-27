@@ -71,6 +71,12 @@ alias gm='git merge'
 alias p='paru'
 
 # TODO: make it so i can have an alias that takes me to a session selection dialogue.
+#
+
+venv() {
+    source ~/.venv/$1/bin/activate
+}
+compdef '_files -W ~/.venv -/' venv
 
 # source plugins
 source $plugin_dir/fzf-tab/fzf-tab.plugin.zsh

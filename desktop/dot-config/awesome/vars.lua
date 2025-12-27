@@ -2,7 +2,6 @@ local awful = require("awful")
 
 awful.layout.layouts = {
     awful.layout.suit.tile,
-    awful.layout.suit.fair,
     awful.layout.suit.max,
 }
 
@@ -11,10 +10,10 @@ return {
     mod = "Mod4",
     editor = os.getenv("EDITOR") or "nvim",
     tags = {
-        { "main",  "a", awful.layout.layouts[1] },
+        { "term",  "a", awful.layout.layouts[1] },
         { "web",   "s", awful.layout.layouts[1] },
-        { "term",  "d", awful.layout.layouts[2] },
-        { "notes", "f", awful.layout.layouts[3] },
-        { "misc",  "g", awful.layout.layouts[3] },
+        { "notes", "d", awful.layout.layouts[2] },
+        { "chat",  "f", awful.layout.layouts[2] },
+        { "music", "g", awful.layout.layouts[2] },
     },
 }

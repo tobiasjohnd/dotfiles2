@@ -14,7 +14,6 @@ awful.screen.connect_for_each_screen(function(s)
     for _, tag in ipairs(v.tags) do
         local tagname = tag[1]
         local taglayout = tag[3]
-        local selected = (tagname == "main")
         awful.tag.add(tagname, {
             screen = s,
             layout = taglayout,
@@ -40,7 +39,11 @@ awful.screen.connect_for_each_screen(function(s)
     s.clock = awful.wibar.textclock
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    s.mywibox = awful.wibar({
+        position = "top",
+        screen = s,
+        height = 32
+    })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
