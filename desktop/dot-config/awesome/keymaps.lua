@@ -5,7 +5,6 @@ local awful = require("awful")
 local menubar = require("menubar")
 local wallpaper = require("wallpaper")
 local hotkeys_popup = require("awful.hotkeys_popup")
-local xrandr = require("xrandr")
 
 require("awful.hotkeys_popup.keys")
 
@@ -34,8 +33,6 @@ M.globalkeys = gears.table.join(
     ),
     key({ v.mod }, "b", wallpaper.refresh,
         { description = "change wallpaper", group = "awesome" }),
-    key({ v.mod }, "x", function() xrandr.xrandr() end,
-        { description = "configure monitors", group = "awesome" }),
 
     -- Layout manipulation
     key({ v.mod, "Shift" }, "j", function() awful.client.swap.byidx(1) end,

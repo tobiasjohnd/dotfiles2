@@ -10,3 +10,5 @@ root.keys(keymaps.globalkeys)
 
 wallpaper.refresh()
 awful.spawn.with_shell("killall picom ; picom --backend xrender --no-fading-openclose")
+awful.spawn.once("setxkbmap gb extd")
+awful.spawn.once("dunst")

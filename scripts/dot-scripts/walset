@@ -1,3 +1,0 @@
-#! /bin/bash
-
-feh --bg-fill $(ls -d $HOME/Wallpaper/* | shuf | head -1)
