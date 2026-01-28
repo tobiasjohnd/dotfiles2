@@ -14,7 +14,11 @@ style = "Beam"
 unfocused_hollow = true
 
 [font]
-size = 13
+size = 12
+
+[font.normal]
+family = "OpenDyslexicMono Nerd Font"
+style = "Regular"
 
 [selection]
 save_to_clipboard = true

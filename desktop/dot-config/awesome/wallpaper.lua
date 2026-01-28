@@ -21,4 +21,5 @@ return { refresh = refresh }
 --- wishlist ---
 
 -- delete wallpapers
+-- auto create wallpapers_home if it doesnt exist
 -- open current wallpaper for editing
