@@ -67,7 +67,7 @@ M.globalkeys = gears.table.join(
         { description = "restore minimized", group = "client" }),
 
     -- Menubar
-    key({ v.mod }, "space", function() awful.spawn("menu-scripts") end,
+    key({ v.mod }, "space", function() awful.spawn("rofi -show drun") end,
         { description = "show the menubar", group = "launcher" })
 )
 
