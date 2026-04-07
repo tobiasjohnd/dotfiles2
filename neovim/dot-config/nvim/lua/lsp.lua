@@ -47,5 +47,5 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 })
 
-vim.lsp.enable({ 'luals', 'pyright' })
+vim.lsp.enable({ 'luals', 'pyright', 'gopls' })
 -- jdtls not enabled here nvim-jdtls sorts itself out.
