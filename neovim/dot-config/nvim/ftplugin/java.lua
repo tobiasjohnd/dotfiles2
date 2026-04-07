@@ -1,3 +1,8 @@
+vim.pack.add({
+    'https://github.com/mfussenegger/nvim-dap',
+    'https://github.com/mfussenegger/nvim-jdtls',
+})
+
 local config = {
     cmd = { 'jdtls' },
     root_dir = vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw' }, { upward = true })[1]),
