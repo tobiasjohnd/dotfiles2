@@ -1,5 +1,8 @@
-vim.g.lazydev_enabled = true
 vim.g.mapleader = ' '
+
+vim.filetype.add({
+    pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+})
 
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect', 'noinsert' }
 vim.opt.shortmess:append('c')

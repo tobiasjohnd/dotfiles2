@@ -1,0 +1,7 @@
+vim.pack.add({ 'https://github.com/brenoprata10/nvim-highlight-colors' })
+require('nvim-highlight-colors').setup({
+    render = 'background',
+    virtual_symbol_position = 'eow',
+    virtual_symbol_prefix = '',
+    virtual_symbol_suffix = ' ',
+})
