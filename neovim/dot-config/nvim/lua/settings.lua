@@ -11,8 +11,6 @@ vim.diagnostic.config({
         current_line = true,
     },
 })
-vim.opt.wrap = true
-
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.termguicolors = true

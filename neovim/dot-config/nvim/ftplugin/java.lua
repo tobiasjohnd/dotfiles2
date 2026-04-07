@@ -1,7 +1,4 @@
-vim.pack.add({
-    'https://github.com/mfussenegger/nvim-dap',
-    'https://github.com/mfussenegger/nvim-jdtls',
-})
+vim.pack.add({ 'https://github.com/mfussenegger/nvim-jdtls' })
 
 local config = {
     cmd = { 'jdtls' },
