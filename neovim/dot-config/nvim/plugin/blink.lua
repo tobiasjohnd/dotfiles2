@@ -4,7 +4,7 @@ vim.pack.add({
         version = vim.version.range('1.x'),
     },
     'https://github.com/ribru17/blink-cmp-spell',
-    'https://github.com/lukas-reineke/blink-cmp-ripgrep',
+    'https://github.com/mikavilpas/blink-ripgrep.nvim',
     'https://github.com/Kaiser-Yang/blink-cmp-git',
     'https://github.com/erooke/blink-cmp-latex',
     'https://github.com/jmbuhr/cmp-pandoc-references',
@@ -29,7 +29,7 @@ require('blink.cmp').setup({
         default = { 'lsp', 'path', 'snippets', 'buffer', 'ripgrep', 'spell', 'git' },
         providers = {
             ripgrep = {
-                module = 'blink-cmp-ripgrep',
+                module = 'blink-ripgrep',
                 name = 'Ripgrep',
             },
             spell = {

@@ -1,9 +1,29 @@
 {
   "plugins": {
+    "blink-cmp-git": {
+      "rev": "10783593af764424018a95e75df6ad5a8b66fe07",
+      "src": "https://github.com/Kaiser-Yang/blink-cmp-git"
+    },
+    "blink-cmp-latex": {
+      "rev": "4f2910b98dabed17a1667ab806354faa8763098e",
+      "src": "https://github.com/erooke/blink-cmp-latex"
+    },
+    "blink-cmp-spell": {
+      "rev": "2bd0e0d5e7735c047e72b6918a0458f3e8fadaba",
+      "src": "https://github.com/ribru17/blink-cmp-spell"
+    },
+    "blink-ripgrep.nvim": {
+      "rev": "6a21f6f68513c630b0f3a498f1a38397c83ec12f",
+      "src": "https://github.com/mikavilpas/blink-ripgrep.nvim"
+    },
     "blink.cmp": {
       "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
       "src": "https://github.com/saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
+    },
+    "cmp-pandoc-references": {
+      "rev": "130eae4f75029d6495808e0ea4b769fa1ce4c9ac",
+      "src": "https://github.com/jmbuhr/cmp-pandoc-references"
     },
     "fzf-lua": {
       "rev": "9f0432fdd7825ab163520045831a40b6df82ea28",
