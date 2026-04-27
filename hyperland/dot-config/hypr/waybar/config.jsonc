@@ -4,6 +4,8 @@
     "exclusive": false,
     "passthrough": false,
     "start_hidden": true,
+    "on-sigusr1": "show",
+    "on-sigusr2": "hide",
     "height": 32,
     "margin": "6px 6px 0 6px",
     "spacing": 4,

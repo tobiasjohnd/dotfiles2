@@ -1,14 +1,7 @@
 #!/bin/bash
-STATE_FILE="/tmp/waybar-visible"
+FIFO="$XDG_RUNTIME_DIR/waybar-cmd"
 
-[ -f "$STATE_FILE" ] && ! pgrep -qf show-waybar.sh && rm -f "$STATE_FILE"
+echo menu-open > "$FIFO"
+trap 'echo menu-close > "$FIFO"' EXIT
 
-if [ -f "$STATE_FILE" ]; then
-    menu-scripts
-else
-    pkill -x -SIGUSR1 waybar
-    touch "$STATE_FILE"
-    menu-scripts
-    pkill -x -SIGUSR1 waybar
-    rm -f "$STATE_FILE"
-fi
+menu-scripts
