@@ -46,9 +46,17 @@
       "src": "https://github.com/obsidian-nvim/obsidian.nvim",
       "version": ">=0.0.0"
     },
+    "otter.nvim": {
+      "rev": "a455e68a99d395889ab30a25ac3846a135e93c46",
+      "src": "https://github.com/jmbuhr/otter.nvim"
+    },
     "plenary.nvim": {
       "rev": "fcb3e9ac127d178b4c189088396165b3facc219e",
       "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "quarto-nvim": {
+      "rev": "d923bb7cfc2bde41143e1c531c28190f0fade3a2",
+      "src": "https://github.com/quarto-dev/quarto-nvim"
     },
     "render-markdown.nvim": {
       "rev": "54d4b5431e9634ee3d8d30784e017239b5b89d41",
