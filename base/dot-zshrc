@@ -90,6 +90,9 @@ export ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 export PATH="$PATH:/opt/nvim/"
 export PATH=$PATH:$HOME/go/bin
 
+# opencode
+export PATH=/home/tobyd/.opencode/bin:$PATH
+
 eval "$(fzf --zsh)"
 export FZF_COMPLETION_TRIGGER=';'
 export FZF_COMPLETION_OPTS='--info=inline-right --walker=file,dir,follow,hidden'
@@ -126,3 +129,4 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
