@@ -1,0 +1,18 @@
+Host iridisx
+    HostName loginX003.iridis.soton.ac.uk
+    User td1n25
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes
+
+Host loginX00*.iridis.soton.ac.uk
+    User td1n25
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes
+
+Host github.com
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes
+
+Host *
+    IdentityFile ~/.ssh/id_ed25519_pswd
+    IdentitiesOnly yes

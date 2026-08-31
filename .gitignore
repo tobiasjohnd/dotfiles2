@@ -1,0 +1,3 @@
+# Never track SSH key material or host records, only the config.
+base/dot-ssh/*
+!base/dot-ssh/config
