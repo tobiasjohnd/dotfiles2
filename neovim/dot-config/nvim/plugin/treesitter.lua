@@ -15,6 +15,7 @@ vim.api.nvim_create_autocmd('FileType', {
     callback = function(ev)
         pcall(vim.treesitter.start)
         vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        if vim.bo[ev.buf].buftype ~= '' then return end
         local lang = vim.treesitter.language.get_lang(ev.match)
         if lang then
             require('nvim-treesitter').install({ lang })

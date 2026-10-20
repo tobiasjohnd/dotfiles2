@@ -69,6 +69,14 @@
     "undotree": {
       "rev": "0e6d41d55ad147407e4ba00a292973de8db0b836",
       "src": "https://github.com/jiaoshijie/undotree"
+    },
+    "venv-selector.nvim": {
+      "rev": "cc4bb3975de8835291f9bb45889e96c6b2795fc4",
+      "src": "https://github.com/linux-cultist/venv-selector.nvim"
+    },
+    "vimtex": {
+      "rev": "24e229914182ff301496a3e2c4214b28c4928d3f",
+      "src": "https://github.com/lervag/vimtex"
     }
   }
 }

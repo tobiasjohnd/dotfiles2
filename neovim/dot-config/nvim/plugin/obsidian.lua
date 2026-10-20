@@ -9,7 +9,7 @@ require('obsidian').setup({
     workspaces = {
         {
             name = "notes",
-            path = "~/notes",
+            path = "~/Documents/notes",
         },
     },
     ui = { enable = false },

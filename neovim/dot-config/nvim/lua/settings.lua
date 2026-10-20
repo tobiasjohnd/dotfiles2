@@ -30,7 +30,7 @@ vim.opt.wrap = true
 vim.opt.linebreak = true
 
 vim.opt.mouse = 'a'
-vim.opt.updatetime = 100
+vim.opt.updatetime = 250
 
 vim.opt.swapfile = false
 vim.opt.backup = false

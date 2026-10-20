@@ -4,7 +4,6 @@ vim.pack.add({
         version = vim.version.range('1.x'),
     },
     'https://github.com/ribru17/blink-cmp-spell',
-    'https://github.com/mikavilpas/blink-ripgrep.nvim',
     'https://github.com/Kaiser-Yang/blink-cmp-git',
     'https://github.com/erooke/blink-cmp-latex',
     'https://github.com/jmbuhr/cmp-pandoc-references',
@@ -26,12 +25,8 @@ require('blink.cmp').setup({
     },
     cmdline = { enabled = true },
     sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'ripgrep', 'spell', 'git' },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'spell', 'git' },
         providers = {
-            ripgrep = {
-                module = 'blink-ripgrep',
-                name = 'Ripgrep',
-            },
             spell = {
                 module = 'blink-cmp-spell',
                 name = 'Spell',
@@ -50,8 +45,8 @@ require('blink.cmp').setup({
             },
         },
         per_filetype = {
-            quarto = { 'lsp', 'path', 'snippets', 'buffer', 'ripgrep', 'spell', 'git', 'pandoc_references' },
-            markdown = { 'lsp', 'path', 'snippets', 'buffer', 'ripgrep', 'spell', 'pandoc_references' },
+            quarto = { 'lsp', 'path', 'snippets', 'buffer', 'spell', 'git', 'pandoc_references' },
+            markdown = { 'lsp', 'path', 'snippets', 'buffer', 'spell', 'pandoc_references' },
         },
     },
     fuzzy = { implementation = "prefer_rust_with_warning" }

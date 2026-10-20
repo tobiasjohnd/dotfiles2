@@ -14,9 +14,7 @@ local function on_lsp_attach(client, buf)
         })
     end
 
-    if client:supports_method('textDocument/inlayHint') then
-        vim.lsp.inlay_hint.enable(true, { bufnr = buf })
-    end
+    -- Inlay hints are not drawn inline; lua/line_info.lua shows them in a popup.
 
     if client:supports_method('textDocument/documentHighlight') then
         local autocmd = vim.api.nvim_create_autocmd
@@ -47,5 +45,5 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 })
 
-vim.lsp.enable({ 'luals', 'pyright', 'gopls', 'clangd' })
+vim.lsp.enable({ 'lua', 'python', 'python_ruff', 'go', 'c' })
 -- jdtls not enabled here nvim-jdtls sorts itself out.
