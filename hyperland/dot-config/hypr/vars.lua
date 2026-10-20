@@ -3,6 +3,8 @@ return {
     term    = "alacritty",
     browser = "helium",
     scripts = "~/.config/hypr/scripts",
+    laptop     = "eDP-1",
+    scratch_ws = 5,
 
     -- Solarized
     colors = {

@@ -1,28 +1,26 @@
 local v = require("vars")
 
--- key: bind key, name: special workspace, app: desktop file id, class: window class
+local STASH = "special:scratchpad" -- hidden parking, never shown
+
+-- key: bind key, app: desktop file id, class: exact window class
 local pads = {
-    { key = "q", name = "files",    app = "org.kde.dolphin",        class = "org.kde.dolphin" },
-    { key = "w", name = "discord",  app = "com.discordapp.Discord", class = "discord" },
-    { key = "e", name = "obsidian", app = "md.obsidian.Obsidian",   class = "obsidian" },
-    { key = "r", name = "zotero",   app = "zotero",                 class = "Zotero" },
-    { key = "t", name = "spotify",  app = "com.spotify.Client",     class = "Spotify" },
+    { key = "q", app = "org.kde.dolphin",        class = "org.kde.dolphin" },
+    { key = "w", app = "com.discordapp.Discord", class = "discord" },
+    { key = "e", app = "md.obsidian.Obsidian",   class = "obsidian" },
+    { key = "r", app = "zotero",                 class = "Zotero" },
+    { key = "t", app = "com.spotify.Client",     class = "Spotify" },
 }
 
+local function toggle(p)
+    local w = hl.get_windows({ class = p.class })[1]
+    if not w then return hl.exec_cmd("gtk-launch " .. p.app) end
+    local sel   = "address:" .. w.address
+    local shown = w.workspace.id == v.scratch_ws and w.workspace.visible
+    hl.dispatch(hl.dsp.window.move({ window = sel, workspace = shown and STASH or v.scratch_ws, follow = false }))
+    if not shown then hl.dispatch(hl.dsp.focus({ window = sel })) end
+end
+
 for _, p in ipairs(pads) do
-    local ws = "special:" .. p.name
-
-    -- Send the app to its scratchpad when it opens
-    hl.window_rule({ match = { class = "^(" .. p.class .. ")$" }, workspace = ws .. " silent" })
-
-    -- Gap around the overlay window
-    hl.workspace_rule({ workspace = ws, gaps_out = 50 })
-
-    -- Launch the app if the scratchpad is empty, then toggle it
-    hl.bind(v.mod .. " + " .. p.key, function()
-        if #hl.get_workspace_windows(ws) == 0 then
-            hl.exec_cmd("gtk-launch " .. p.app, { workspace = ws .. " silent" })
-        end
-        hl.dispatch(hl.dsp.workspace.toggle_special(p.name))
-    end)
+    hl.window_rule({ match = { class = "^(" .. p.class .. ")$" }, workspace = tostring(v.scratch_ws) })
+    hl.bind(v.mod .. " + " .. p.key, function() toggle(p) end)
 end

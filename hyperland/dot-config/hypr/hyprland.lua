@@ -1,4 +1,5 @@
 require("settings")
+require("monitors")
 require("autostart")
 require("keymaps")
 require("scratchpads")

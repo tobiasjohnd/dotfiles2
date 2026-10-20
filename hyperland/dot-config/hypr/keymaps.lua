@@ -9,8 +9,7 @@ hl.bind(mod .. " + slash",  hl.dsp.exec_cmd(v.browser))
 
 -- ── Workspaces (XMonad-style) ─────────────────────────────────
 for i, key in ipairs({ "a", "s", "d", "f", "g" }) do
-    hl.bind(mod .. " + " .. key,
-        hl.dsp.focus({ workspace = i, on_current_monitor = true }))
+    hl.bind(mod .. " + " .. key, hl.dsp.focus({ workspace = i }))
     hl.bind(mod .. " + SHIFT + " .. key,
         hl.dsp.window.move({ workspace = i, follow = true }))
 end
