@@ -8,7 +8,7 @@ APP="$2"
 COUNT=$(hyprctl clients -j | jq "[.[] | select(.workspace.name == \"special:$WORKSPACE\")] | length")
 
 if [ "$COUNT" -eq 0 ]; then
-    hyprctl dispatch exec "[workspace special:$WORKSPACE silent] gtk-launch $APP"
+    hyprctl dispatch "hl.dsp.exec_cmd('gtk-launch $APP', { workspace = 'special:$WORKSPACE silent' })"
 fi
 
-hyprctl dispatch togglespecialworkspace "$WORKSPACE"
+hyprctl dispatch "hl.dsp.workspace.toggle_special('$WORKSPACE')"
