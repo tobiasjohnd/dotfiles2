@@ -33,18 +33,13 @@ hl.bind(mod .. " + l", hl.dsp.layout("mfact +0.05"), { repeating = true })
 hl.bind(mod .. " + o", hl.dsp.layout("orientationcycle left center"))
 
 
--- ── Monitor Management ────────────────────────────────────────
-hl.bind(mod .. " + semicolon",         hl.dsp.focus({ monitor = "+1" }))
-hl.bind(mod .. " + SHIFT + semicolon", hl.dsp.window.move({ monitor = "+1" }))
-
-
 -- ── Window Management ─────────────────────────────────────────
 hl.bind(mod .. " + y", hl.dsp.window.close())
 hl.bind(mod .. " + u", hl.dsp.window.float())
 hl.bind(mod .. " + i", hl.dsp.window.fullscreen())
+hl.bind(mod .. " + semicolon", hl.dsp.window.pin())
 hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
-hl.bind(mod .. " + mouse:274", hl.dsp.window.pin())
 
 
 -- ── Screenshots ───────────────────────────────────────────────
