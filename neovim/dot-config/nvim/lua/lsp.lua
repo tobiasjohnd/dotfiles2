@@ -5,19 +5,6 @@ local function on_lsp_attach(client, buf)
     end
     ]]
 
-    if client:supports_method('textDocument/formatting') then
-        vim.api.nvim_create_autocmd('BufWritePre', {
-            buffer = buf,
-            callback = function()
-                -- Autosaves format on their own schedule (autocommands.lua).
-                if vim.b[buf].autosaving then
-                    return
-                end
-                vim.lsp.buf.format({ bufnr = buf, id = client.id })
-            end,
-        })
-    end
-
     -- Inlay hints are not drawn inline; lua/line_info.lua shows them in a popup.
 
     if client:supports_method('textDocument/documentHighlight') then
@@ -39,6 +26,21 @@ local function on_lsp_attach(client, buf)
         })
     end
 end
+
+-- Format on save. Checked at write time rather than on attach because some
+-- servers (ruff) only register formatting after they attach.
+vim.api.nvim_create_autocmd('BufWritePre', {
+    group = vim.api.nvim_create_augroup('lsp_format_on_save', { clear = true }),
+    callback = function(args)
+        -- Normal-mode autosaves skip formatting (autocommands.lua).
+        if vim.b[args.buf].autosaving then
+            return
+        end
+        if #vim.lsp.get_clients({ bufnr = args.buf, method = 'textDocument/formatting' }) > 0 then
+            vim.lsp.buf.format({ bufnr = args.buf })
+        end
+    end,
+})
 
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
