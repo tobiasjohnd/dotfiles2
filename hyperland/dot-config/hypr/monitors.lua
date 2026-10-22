@@ -12,5 +12,8 @@ local function assign(gone)
 end
 
 assign()
-hl.on("monitor.added", function() assign() end)
+hl.on("monitor.added", function()
+    assign()
+    hl.exec_cmd(v.scripts .. "/wallpaper.sh sync")
+end)
 hl.on("monitor.removed", function(m) assign(m.name) end)
