@@ -9,6 +9,10 @@ local function on_lsp_attach(client, buf)
         vim.api.nvim_create_autocmd('BufWritePre', {
             buffer = buf,
             callback = function()
+                -- Autosaves format on their own schedule (autocommands.lua).
+                if vim.b[buf].autosaving then
+                    return
+                end
                 vim.lsp.buf.format({ bufnr = buf, id = client.id })
             end,
         })
