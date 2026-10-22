@@ -71,6 +71,7 @@ hl.bind(mod .. " + z",         hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mod .. " + x",         hl.dsp.exec_cmd("hyprctl reload"))
 hl.bind(mod .. " + SHIFT + x", hl.dsp.exit())
 hl.bind(mod .. " + b",         hl.dsp.exec_cmd("echo toggle > $XDG_RUNTIME_DIR/waybar-cmd"))
+hl.bind(mod .. " + SHIFT + b", hl.dsp.exec_cmd(v.scripts .. "/wallpaper.sh"))
 
 
 -- ── Notifications ─────────────────────────────────────────────
