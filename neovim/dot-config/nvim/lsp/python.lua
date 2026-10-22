@@ -35,6 +35,8 @@ return {
         'pyrightconfig.json',
         '.git',
     },
+    -- Line with inferred types in the corner popup (lua/line_info).
+    line_info = { require('line_info.sources.inlay_hints') },
     settings = {
         basedpyright = {
             analysis = {

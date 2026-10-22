@@ -13,8 +13,11 @@ vim.treesitter.language.register('markdown', 'quarto')
 
 vim.api.nvim_create_autocmd('FileType', {
     callback = function(ev)
-        pcall(vim.treesitter.start)
-        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        -- Only take over indenting when a parser actually started, so filetypes
+        -- without one (e.g. lean) keep their own indentexpr.
+        if pcall(vim.treesitter.start) then
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
         if vim.bo[ev.buf].buftype ~= '' then return end
         local lang = vim.treesitter.language.get_lang(ev.match)
         -- lean: no parser in nvim-treesitter; lean.nvim highlights it.

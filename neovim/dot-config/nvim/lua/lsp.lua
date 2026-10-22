@@ -45,5 +45,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 })
 
-vim.lsp.enable({ 'lua', 'python', 'python_ruff', 'go', 'c' })
+-- leanls keeps lean.nvim's name: lean.nvim looks the client up by it.
+vim.lsp.enable({ 'lua', 'python', 'python_ruff', 'go', 'c', 'leanls' })
 -- jdtls not enabled here nvim-jdtls sorts itself out.
