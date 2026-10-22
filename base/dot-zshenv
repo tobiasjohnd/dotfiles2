@@ -1,5 +1,5 @@
 export EDITOR=nvim
-export PATH=$HOME/.scripts:$HOME/.emacs.d/bin:$HOME/.local/bin:/opt/nvim?$PATH
+export PATH=$HOME/.scripts:$HOME/.emacs.d/bin:$HOME/.local/bin:/opt/nvim:$PATH
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 export EDITOR="/usr/bin/nvim"
