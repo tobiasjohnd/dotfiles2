@@ -11,9 +11,14 @@ menu_open=0
 show() { pkill -x -SIGUSR1 waybar; }
 hide() { pkill -x -SIGUSR2 waybar; }
 
-socat -U - UNIX-CONNECT:"$SOCKET" | while IFS= read -r ln; do
-    [[ "$ln" == workspacev2* ]] && echo ws > "$FIFO"
-done &
+# Exit with Hyprland: when its socket closes, socat ends and we kill the main loop,
+# so a restarted Hyprland doesn't leave an old controller reading the FIFO.
+{
+    socat -U - UNIX-CONNECT:"$SOCKET" | while IFS= read -r ln; do
+        [[ "$ln" == workspacev2* ]] && echo ws > "$FIFO"
+    done
+    kill $$
+} &
 
 exec 8<>"$FIFO"
 
