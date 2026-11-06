@@ -69,6 +69,7 @@ alias gm='git merge'
 if [[ "$(uname)" == Darwin ]]; then
   alias ls='ls -G'                        # BSD ls
   alias ssh-login='ssh-add --apple-use-keychain ~/.ssh/id_ed25519'
+  export GREENPT_API_KEY="$(security find-generic-password -a "$USER" -s greenpt -w 2>/dev/null)"
 else
   alias ls='ls --color=auto'              # GNU ls
   alias p='paru'
@@ -76,6 +77,7 @@ else
   alias ssh-login="ssh-add ~/.ssh/id_ed25519"
   export TERM=xterm-256color
   export PATH="$PATH:/opt/nvim/"
+  export GREENPT_API_KEY="$(timeout 2 secret-tool lookup service greenpt 2>/dev/null)"  # timeout: a locked keyring must not hang the shell
 fi
 
 # TODO: make it so i can have an alias that takes me to a session selection dialogue.
@@ -124,5 +126,3 @@ elif [ -d "$HOME/anaconda3/bin" ]; then
     export PATH="$HOME/anaconda3/bin:$PATH"
 fi
 # <<< conda initialize <<<
-
-[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
