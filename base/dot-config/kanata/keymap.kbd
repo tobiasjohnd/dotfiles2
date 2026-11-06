@@ -1,0 +1,38 @@
+;; Shared kanata keymap: defsrc, defvar, defalias, deflayer.
+;; No defcfg here — platform/device selection lives in the entry files that
+;; include this one (laptop: xps.kbd, macos: mac.kbd).
+
+(defsrc
+  esc caps spc lalt ralt
+  s d f j k l
+)
+
+(defvar
+  tap-time 200
+  hold-time 200
+)
+
+(defalias
+  s (tap-hold-press $tap-time $hold-time s lalt)
+  d (tap-hold-press $tap-time $hold-time d lmet)
+  f (tap-hold-press $tap-time $hold-time f lctl)
+  j (tap-hold-press $tap-time $hold-time j rctl)
+  k (tap-hold-press $tap-time $hold-time k rmet)
+  l (tap-hold-press $tap-time $hold-time l ralt)
+
+  lyrh (
+    tap-hold-press-timeout $tap-time $hold-time spc
+    (layer-while-held homerowmods)
+    (one-shot-release 5000 (layer-while-held homerowmods))
+  )
+)
+
+(deflayer base
+  lrld esc @lyrh lsft rsft
+  _ _ _ _ _ _
+)
+
+(deflayer homerowmods
+  _ _ XX _ _
+  @s @d @f @j @k @l
+)

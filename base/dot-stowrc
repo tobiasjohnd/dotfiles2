@@ -1,3 +1,4 @@
 --dir=$HOME/dotfiles
 --dotfiles
 --verbose=1
+--ignore=^(dnf\.conf|kanata\.plist|README\.md)$

@@ -1,0 +1,14 @@
+;; kanata entry for macOS.
+;; Find real device names with `sudo kanata -l` and adjust the include list.
+;; One-time setup (Karabiner driver, permissions, LaunchDaemon): macos/README.md
+(defcfg
+  process-unmapped-keys yes
+  macos-dev-names-include (
+    "Apple Internal Keyboard / Trackpad"
+    "Keychron Keychron K3"
+  )
+  ;; keep running even if the external keyboard is not connected yet
+  macos-continue-if-no-devs-found yes
+)
+
+(include keymap.kbd)

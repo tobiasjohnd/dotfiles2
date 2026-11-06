@@ -36,7 +36,7 @@ setopt hist_ignore_all_dups
 #compinit
 
 ## Completion
-fpath=(path/to/zsh-completions/src $fpath)
+fpath=($plugin_dir/zsh-completions/src $fpath)
 autoload -U compinit ; compinit
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 
@@ -52,9 +52,6 @@ _comp_options+=(globdots)
 alias s='sudo'
 alias sl='sudo $(fc -ln -1)'
 
-# git bare repo alias for dotfiles
-alias config='/usr/bin/git --git-dir=$HOME/.config-repo/ --work-tree=$HOME'
-alias ls='ls --color=auto'
 alias tmux='tmux new -A'
 alias gl='git log --oneline --graph --parents --decorate'
 alias g='git'
@@ -68,7 +65,18 @@ alias gd='git diff'
 alias gsw='git switch'
 alias gm='git merge'
 
-alias p='paru'
+## Platform-specific
+if [[ "$(uname)" == Darwin ]]; then
+  alias ls='ls -G'                        # BSD ls
+  alias ssh-login='ssh-add --apple-use-keychain ~/.ssh/id_ed25519'
+else
+  alias ls='ls --color=auto'              # GNU ls
+  alias p='paru'
+  eval "$(ssh-agent -s)" > /dev/null
+  alias ssh-login="ssh-add ~/.ssh/id_ed25519"
+  export TERM=xterm-256color
+  export PATH="$PATH:/opt/nvim/"
+fi
 
 # TODO: make it so i can have an alias that takes me to a session selection dialogue.
 #
@@ -87,23 +95,19 @@ source $plugin_dir/syntax-highlighting/zsh-syntax-highlighting.zsh # needs to go
 ## Plugin config
 export ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 
-export PATH="$PATH:/opt/nvim/"
 export PATH=$PATH:$HOME/go/bin
 
 # opencode
-export PATH=/home/tobyd/.opencode/bin:$PATH
+[[ -d "$HOME/.opencode/bin" ]] && export PATH="$HOME/.opencode/bin:$PATH"
 
-eval "$(fzf --zsh)"
+command -v fzf >/dev/null && eval "$(fzf --zsh)"
 export FZF_COMPLETION_TRIGGER=';'
 export FZF_COMPLETION_OPTS='--info=inline-right --walker=file,dir,follow,hidden'
 
 # TODO: look into fzf-tab 
 # TODO: read more abour fzf
 
-eval "$(ssh-agent -s)" > /dev/null
-alias ssh-login="ssh-add ~/.ssh/id_ed25519"
-
-# [ -f "/home/tobyd/.ghcup/env" ] && . "/home/tobyd/.ghcup/env" # ghcup-env
+# [ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # ghcup-env
 
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
@@ -111,22 +115,14 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-export TERM=xterm-256color
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/tobyd/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/tobyd/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/tobyd/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/tobyd/anaconda3/bin:$PATH"
-    fi
+if [ -f "$HOME/anaconda3/etc/profile.d/conda.sh" ]; then
+    . "$HOME/anaconda3/etc/profile.d/conda.sh"
+elif [ -d "$HOME/anaconda3/bin" ]; then
+    export PATH="$HOME/anaconda3/bin:$PATH"
 fi
-unset __conda_setup
 # <<< conda initialize <<<
 
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
