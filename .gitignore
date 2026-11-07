@@ -1,3 +1,13 @@
 # Never track SSH key material or host records, only the config.
 base/dot-ssh/*
 !base/dot-ssh/config
+
+# pi runtime state, never track (the pi package stows ~/.pi straight into this
+# repo, so the app writes here directly)
+pi/dot-pi/agent/auth.json
+pi/dot-pi/agent/npm/
+pi/dot-pi/agent/sessions/
+pi/dot-pi/agent/models-store.json
+pi/dot-pi/agent/pi-subagents/
+pi/dot-pi/agent/pi-web-access/
+pi/dot-pi/agent/extensions/pi-permission-system/
