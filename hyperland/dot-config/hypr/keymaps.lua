@@ -19,10 +19,12 @@ hl.bind(mod .. " + Tab",    hl.dsp.focus({ workspace = "e+1" }))
 
 
 -- ── Window Navigation ────────────────────────────────────────
-hl.bind(mod .. " + j",         hl.dsp.window.cycle_next())
-hl.bind(mod .. " + k",         hl.dsp.window.cycle_next({ next = false }))
-hl.bind(mod .. " + SHIFT + j", hl.dsp.window.swap({ next = true }))
-hl.bind(mod .. " + SHIFT + k", hl.dsp.window.swap({ prev = true }))
+-- Layout messages: cycle_next/swap don't work in monocle (ws 5),
+-- but the layout's own messages work in both master and monocle
+hl.bind(mod .. " + j",         hl.dsp.layout("cyclenext"))
+hl.bind(mod .. " + k",         hl.dsp.layout("cycleprev"))
+hl.bind(mod .. " + SHIFT + j", hl.dsp.layout("swapnext"))
+hl.bind(mod .. " + SHIFT + k", hl.dsp.layout("swapprev"))
 hl.bind(mod .. " + m",         hl.dsp.layout("focusmaster"))
 hl.bind(mod .. " + SHIFT + m", hl.dsp.layout("swapwithmaster"))
 
