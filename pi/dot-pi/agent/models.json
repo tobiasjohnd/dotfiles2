@@ -1,0 +1,19 @@
+{
+  "providers": {
+    "greenpt": {
+      "baseUrl": "https://api.greenpt.ai/v1",
+      "api": "openai-completions",
+      "apiKey": "$GREENPT_API_KEY",
+      "models": [
+        {
+          "id": "glm-5.3",
+          "contextWindow": 1000000
+        },
+        {
+          "id": "deepseek-v4.1-flash-1017",
+          "contextWindow": 1000000
+        }
+      ]
+    }
+  }
+}
