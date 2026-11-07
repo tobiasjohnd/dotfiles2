@@ -1,0 +1,5 @@
+# Homebrew. Login shells read this: alacritty spawns `zsh --login`, and tmux
+# panes inherit PATH from the login shell that started the tmux server.
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+export PATH="$HOME/.elan/bin:$PATH"
