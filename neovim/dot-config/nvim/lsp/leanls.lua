@@ -1,9 +1,3 @@
--- Additions to lean.nvim's Lean server config.
---
--- Named leanls, not lean: lean.nvim starts a server called 'leanls' and ships its
--- own lsp/leanls.lua. Neovim merges every lsp/leanls.lua on the runtimepath, so this
--- file only adds to that config (lean.nvim's values win where both set a key).
-
 ---@type vim.lsp.Config
 return {
     -- Proof goals at the cursor in the corner popup (lua/line_info).
@@ -23,7 +17,6 @@ return {
                     },
                 }
             end,
-            -- result: { rendered = markdown ("no goals" when done), goals = {...} }
             render = function(result)
                 return vim.split(result.rendered, '\n', { trimempty = true })
             end,
