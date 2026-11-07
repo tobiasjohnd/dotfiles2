@@ -1,0 +1,12 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "plan",
+  "agents": {
+    "plan": {
+      "model": "greenpt/glm-5.3"
+    },
+    "build": {
+      "model": "greenpt/deepseek-v4.1-flash-1017"
+    }
+  }
+}
