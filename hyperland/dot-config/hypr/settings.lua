@@ -43,7 +43,13 @@ hl.config({
     input = {
         kb_layout  = "gb",
         kb_variant = "extd",
+        -- train away from the mouse: focus follows it between windows only,
+        -- its focusing click is swallowed, and the cursor hides when idle
+        follow_mouse        = 2,
+        swallow_focus_click = true,
     },
+
+    cursor = { inactive_timeout = 2 },
 })
 
 hl.gesture({
