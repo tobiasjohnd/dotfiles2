@@ -1,5 +1,4 @@
-;; kanata entry for the XPS (Linux).
-;; defcfg is the only platform-specific part; the keymap is shared via include.
+;; kanata entry file for the XPS (Linux): defcfg only; keymap in keymap.kbd.
 (defcfg
   process-unmapped-keys yes
   linux-dev-names-include (

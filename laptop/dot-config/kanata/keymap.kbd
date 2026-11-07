@@ -1,6 +1,5 @@
-;; Shared kanata keymap: defsrc, defvar, defalias, deflayer.
-;; No defcfg here — platform/device selection lives in the entry files that
-;; include this one (laptop: xps.kbd, macos: mac.kbd).
+;; kanata keymap (defsrc, defvar, defalias, deflayer) for the XPS;
+;; included by xps.kbd, which owns the defcfg.
 
 (defsrc
   esc caps spc lalt ralt
